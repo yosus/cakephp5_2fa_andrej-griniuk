@@ -139,45 +139,5 @@ class UsersController extends AppController
 
 
 
-    /**
-     * @param int $length
-     * @return string
-     */
-    private function generateRandomNumbers(int $length = 6): string
-    {
-        if ($length <= 0) {
-            $length = 6;
-        }
-        $max = (10 ** $length) - 1;
-        return str_pad((string) random_int(0, $max), $length, '0', STR_PAD_LEFT);
-    }
-
-    public function sendAuthCodeToEmail()
-    {
-
-        /** @var \App\Model\Entity\User $user */
-        $user = $this->Users->get($this->Authentication->getIdentity()->id);
-
-        // Generate a random 6 digit code, and save it to user database
-        $user->secret_email_code = $this->generateRandomNumbers(6);
-        $user->secret_email_code_generation_time = DateTime::now()->format('U');
-        $saveResults = $this->Users->save($user);
-        debug($saveResults);
-
-        if($saveResults) {
-
-            $mailer = new Mailer('default');
-            $mailer->setFrom(['support@bricatta.com' => 'Bricatta'])
-                ->setTo('support@bricatta.com')
-                ->setSubject('Login Code')
-                ->deliver('Your login code is : ' . $user->secret_email_code);
-        } else {
-            $this->Flash->error(__('Unable to update user with 2FA secret. Please try again.'));
-        }
-
-
-        $this->disableAutoRender();
-
-    }
 
 }
