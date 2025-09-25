@@ -42,7 +42,7 @@ A short guide. Please play around with it yourself
 
 Add a new user at `/Users/add`. You will need to modify this line of code in `src/Controller/UsersController.php` so you can call this `add` function without authentication. Remember to remove it later, if not, public can add users without authentication!
 
-    this->Authentication->addUnauthenticatedActions(['login', 'verify', 'add' ]);
+    $this->Authentication->addUnauthenticatedActions(['login', 'verify', 'add' ]);
 
 > [!CAUTION]
 > Leaving 'add' to `addUnauthenticatedActions` will be a major security flaw. Remove it for production environment.
@@ -54,6 +54,6 @@ Login with that newly created account. Goto `/Users/add2factorCode` to add the `
 
 <br/>
 
-Logout, and login again. After keying in your username and password at `Users/login`, you will be redirected to the new page `/Users/verify` to verify the 6-digit code from the Authentication app. Login will only be successful after this 2 factor authencation.
+Logout, and login again. After keying in your username and password at `Users/login`, you will be redirected to the new page `/Users/verify` to verify the 6-digit code from the Authentication app. Login will only be successful after this 2 factor authentication.
 
 
