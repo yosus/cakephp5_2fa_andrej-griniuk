@@ -134,9 +134,7 @@ class Application extends BaseApplication implements AuthenticationServiceProvid
         // Load the authenticators, you want session first
         $authenticationService->loadAuthenticator('Authentication.Session');
 
-        // Email code
-        $authenticationService->loadAuthenticator(\App\Auth\EmailCodeAuthenticator::class);
-
+        
         // 2-factor auth
         $fields = [
             'username' => 'email',
